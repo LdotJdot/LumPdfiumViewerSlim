@@ -1,0 +1,53 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AvaloniaApplication1.MainWindow"
+        Title="Lum PDF Viewer"
+        Width="800"
+        Height="600"
+		xmlns:local="clr-namespace:AvaloniaApplication1"
+		x:DataType="local:MainWindow"
+>
+
+
+	<DockPanel>
+		<!-- 自定义工具栏 -->
+		<Border DockPanel.Dock="Top"
+                BorderBrush="#CCCCCC"
+                BorderThickness="0,0,0,1"
+                Height="42">
+			<StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="10,0">
+				<Button Content="📁 Open"
+                        Click="Open_Click"
+                        Margin="5,0"
+                        Padding="10,5"/>				
+			</StackPanel>
+		</Border>
+
+		<!-- 主要内容区域 -->
+		<ScrollViewer>
+			<ItemsControl  x:Name="pageList"
+             IsTabStop="False"
+				Focusable="False"
+				IsHitTestVisible="True"
+
+				ItemsSource="{Binding RenderedPages.DisplayedData, Mode=OneWay}" Background="Transparent">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<VirtualizingStackPanel/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				
+				<ItemsControl.ItemTemplate>
+					
+					<DataTemplate>
+						<Image 
+							Source="{Binding Image}"
+							   Stretch="Uniform"/>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl >
+		</ScrollViewer>
+	</DockPanel>
+</Window>

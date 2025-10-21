@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	  <OutputType>WinExe</OutputType>
+	  <TargetFramework>net9.0</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <ApplicationManifest>app.manifest</ApplicationManifest>
+	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	  <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+	  <!--<TrimMode>link</TrimMode>-->
+	  <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+
+	  <Platforms>AnyCPU;x64;x86</Platforms>
+	  <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+	  <OptimizationPreference>Speed</OptimizationPreference>
+	  <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	  <!--<PublishAot>true</PublishAot>-->
+	  <TrimMode>full</TrimMode>
+	  <InvariantGlobalization>true</InvariantGlobalization>
+	  <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+	  <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+	  <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+	  <!-- 对于 Linux，可以尝试更激进的裁剪和静态链接 -->
+	  <SelfContained>true</SelfContained>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="C:\Users\luoji\.nuget\packages\pdfiumviewer.native.x86_64.v8-xfa\2018.4.8.256\Build\x64\pdfium.dll" Link="pdfium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.0" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.3.0">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI" Version="22.1.1" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.0-rc.2.25502.107" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LumPdfiumViewerSlimCore\LumPdfiumViewerSlimCore.csproj" />
+  </ItemGroup>
+</Project>

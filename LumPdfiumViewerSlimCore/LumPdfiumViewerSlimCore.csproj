@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;</TargetFrameworks>
+    <Version>1.0.6</Version>
+    <Authors>Behzad Khosravifar</Authors>
+    <Description>PDF viewer based on Google's PDFium port to .Net Core.</Description>
+    <Copyright>Copyright © 2019-2020 Behzad Khosravifar</Copyright>
+    <PackageProjectUrl>https://github.com/bezzad/PdfiumViewer</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/bezzad/PdfiumViewer.git</RepositoryUrl>
+    <PackageTags>pdfium pdf-viewer wpf-controls dotnet-core google-pdf-viewer chrome-pdf</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <PackageId>PdfiumViewer.WPF</PackageId>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReleaseNotes>.Net 5 Support</PackageReleaseNotes>
+    <AssemblyVersion>1.0.6.0</AssemblyVersion>
+    <FileVersion>1.0.6.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="10.0.0-rc.2.25502.107" />
+  </ItemGroup>
+
+</Project>
