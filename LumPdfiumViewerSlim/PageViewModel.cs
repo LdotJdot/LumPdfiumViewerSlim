@@ -5,6 +5,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reactive;
@@ -37,7 +38,7 @@ namespace AvaloniaApplication1
         {
             try
             {
-                using var image = _pdfDocument.Render(page, 600, 800, 96, 96);
+                using var image = _pdfDocument.Render(page, 800, 1200, 192, 192);
                             
                 return ConvertToAvaloniaBitmap(image);
             }
@@ -51,15 +52,8 @@ namespace AvaloniaApplication1
         private Avalonia.Media.Imaging.Bitmap ConvertToAvaloniaBitmap(System.Drawing.Image image)
         {
             using (var memoryStream = new MemoryStream())
-            {
-                var jpegEncoder = System.Drawing.Imaging.ImageCodecInfo.GetImageEncoders()
-                    .First(codec => codec.FormatID == System.Drawing.Imaging.ImageFormat.Jpeg.Guid);
-
-                var encoderParams = new System.Drawing.Imaging.EncoderParameters();
-                encoderParams.Param[0] = new System.Drawing.Imaging.EncoderParameter(
-                    System.Drawing.Imaging.Encoder.Quality, (long)70);
-
-                image.Save(memoryStream, jpegEncoder, encoderParams);
+            {                
+                image.Save(memoryStream,ImageFormat.Png);
                 memoryStream.Position = 0;
                 return new Avalonia.Media.Imaging.Bitmap(memoryStream);
             }
