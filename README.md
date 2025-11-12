@@ -2,8 +2,9 @@
 
 LumPdfiumViewerSlim is a streamlined version of PdfiumViewer. The core of PdfiumViewer has been separated, and the WPF components have been removed. It has been re-implemented using AvaloniaUI and supports AOT (Ahead-Of-Time) compilation to enable fast file preview.
 
-<img width="377" height="329" alt="image" src="https://github.com/user-attachments/assets/f0e141f5-746b-4b10-b192-3e38523c22e9" />
+<img width="402" height="332" alt="image" src="https://github.com/user-attachments/assets/5fd90471-2090-44ce-ae2b-3ab06f640a89" />
 
+*GDI is used in System.Drawing to support print function, which is no longer officially supported on Linux / macOS.*
 
 ## Key Features
 
