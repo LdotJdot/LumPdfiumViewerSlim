@@ -22,6 +22,10 @@
                         Click="Open_Click"
                         Margin="5,0"
                         Padding="10,5"/>				
+				<Button Content="Print"
+                        Click="Print_Click"
+                        Margin="5,0"
+                        Padding="10,5"/>				
 			</StackPanel>
 		</Border>
 

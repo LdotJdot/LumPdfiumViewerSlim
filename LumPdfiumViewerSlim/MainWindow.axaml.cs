@@ -23,6 +23,11 @@ namespace AvaloniaApplication1
             DataContext= this;
         }     
 
+        private async void Print_Click(object sender, RoutedEventArgs e)
+        {
+            RenderedPages.Print();
+        }
+
         private async void Open_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog

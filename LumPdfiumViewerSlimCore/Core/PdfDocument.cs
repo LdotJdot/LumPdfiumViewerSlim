@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LumPdfiumViewerSlimCore.PrintDocument;
+using PdfiumViewer.Drawing;
+using PdfiumViewer.Enums;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -6,15 +9,15 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
-using PdfiumViewer.Drawing;
-using PdfiumViewer.Enums;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
 
 namespace PdfiumViewer.Core
 {
     /// <summary>
     /// Provides functionality to render a PDF document.
     /// </summary>
-    public class PdfDocument
+    public class PdfDocument: IPdfDocument
     {
         private bool _disposed;
         private PdfFile _file;
@@ -86,9 +89,23 @@ namespace PdfiumViewer.Core
             _file = new PdfFile(stream, password);
             _pageSizes = new List<SizeF>(PageCount);
             for (var i = 0; i < PageCount; i++)
+            {
                 _pageSizes.Add(new SizeF());
+                GetPageSize(i);
+
+            }
+            
+            //for(int i=0;i < PageCount; i++)
+            //{
+            //    GetPageSize(0);
+            //}
+
             PageSizes = new ReadOnlyCollection<SizeF>(_pageSizes);
+
         }
+
+        
+
 
         /// <summary>
         /// Renders a page of the PDF document to the provided graphics instance.
@@ -169,11 +186,11 @@ namespace PdfiumViewer.Core
         /// <param name="dpiY">Vertical DPI.</param>
         /// <param name="forPrinting">Render the page for printing.</param>
         /// <returns>The rendered image.</returns>
-        public Image Render(int page, float dpiX, float dpiY)
+        public Image Render(int page, float dpiX, float dpiY, bool forPrinting)
         {
             var size = PageSizes[page];
 
-            return Render(page, (int)size.Width, (int)size.Height, dpiX, dpiY);
+            return Render(page, (int)size.Width, (int)size.Height, dpiX, dpiY, forPrinting);
         }
 
         /// <summary>
@@ -512,6 +529,28 @@ namespace PdfiumViewer.Core
 
                 _disposed = true;
             }
+        }
+                
+
+        public Image Render(int page, int width, int height, float dpiX, float dpiY, bool forPrinting)
+        {
+            return Render(page, width, height, dpiX, dpiY, forPrinting ? PdfRenderFlags.ForPrinting : PdfRenderFlags.None);
+
+        }
+
+        public PrintDocument CreatePrintDocument()
+        {
+            return CreatePrintDocument(PdfPrintMode.CutMargin);
+        }
+
+        public PrintDocument CreatePrintDocument(PdfPrintMode printMode)
+        {
+            return CreatePrintDocument(new PdfPrintSettings(printMode, null));
+        }
+
+        public PrintDocument CreatePrintDocument(PdfPrintSettings settings)
+        {
+            return new PDFPrintDocument(this, settings);
         }
     }
 }

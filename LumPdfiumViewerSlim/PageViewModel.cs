@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Reactive;
@@ -38,7 +39,8 @@ namespace AvaloniaApplication1
         {
             try
             {
-                using var image = _pdfDocument.Render(page, 800, 1200, 192, 192);
+                var size = _pdfDocument.PageSizes[page];
+                using var image = _pdfDocument.Render(page, (int)size.Width , (int)size.Height, 192, 192);
                             
                 return ConvertToAvaloniaBitmap(image);
             }
@@ -88,6 +90,35 @@ namespace AvaloniaApplication1
             // 页面范围
             DisplayedData = Enumerable.Range(0, pdfDocument.PageCount).Select(o=>new PageRender(_pdfDocument, o));
 
+        }
+
+        public void Print()
+        {
+            using var pd = _pdfDocument.CreatePrintDocument();
+
+            var ps = new PrinterSettings();
+            ps.PrinterName = "Microsoft Print to PDF";
+            ps.Copies = 1;
+
+            // 4. 页面设置（纸张/边距）
+            var pgs = new PageSettings(ps)
+            {
+                Margins = new Margins(0, 0, 0, 0)
+            };
+            foreach (PaperSize sz in ps.PaperSizes)
+            {
+                if (sz.PaperName.Equals("A4", StringComparison.OrdinalIgnoreCase))
+                {
+                    pgs.PaperSize = sz;
+                    break;
+                }
+            }
+
+            // 5. 应用设置并静默打印
+            pd.PrinterSettings = ps;
+            pd.DefaultPageSettings = pgs;
+            pd.PrintController = new StandardPrintController(); // 不弹进度框
+            pd.Print();
         }
 
         public void Dispose()

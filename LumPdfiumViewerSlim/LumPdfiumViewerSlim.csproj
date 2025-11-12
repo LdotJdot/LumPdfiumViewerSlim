@@ -7,13 +7,12 @@
 	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 	  <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
 	  <!--<TrimMode>link</TrimMode>-->
-	  <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 
 	  <Platforms>AnyCPU;x64;x86</Platforms>
 	  <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	  <OptimizationPreference>Speed</OptimizationPreference>
 	  <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-	  <!--<PublishAot>true</PublishAot>-->
+	  <PublishAot>false</PublishAot>
 	  <TrimMode>full</TrimMode>
 	  <InvariantGlobalization>true</InvariantGlobalization>
 	  <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
