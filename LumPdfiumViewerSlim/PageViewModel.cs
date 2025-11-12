@@ -40,7 +40,7 @@ namespace AvaloniaApplication1
             try
             {
                 var size = _pdfDocument.PageSizes[page];
-                using var image = _pdfDocument.Render(page, (int)size.Width , (int)size.Height, 192, 192);
+                using var image = _pdfDocument.Render(page, (int)size.Width , (int)size.Height, 128, 128);
                             
                 return ConvertToAvaloniaBitmap(image);
             }
