@@ -220,7 +220,7 @@ namespace PdfiumViewer.Core
         /// <returns>The rendered image.</returns>
         public Image Render(int page, int width, int height, float dpiX, float dpiY)
         {
-            return Render(page, width, height, dpiX, dpiY, PdfRenderFlags.None);
+            return Render(page, width, height, dpiX, dpiY, PdfRenderFlags.CorrectFromDpi);
         }
 
         /// <summary>
